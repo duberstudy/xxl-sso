@@ -25,7 +25,7 @@ public class SsoSessionIdHelper {
      * @return
      */
     public static String makeSessionId(XxlSsoUser xxlSsoUser){
-        String sessionId = xxlSsoUser.getUserid().concat("_").concat(xxlSsoUser.getVersion());
+        String sessionId = String.valueOf(xxlSsoUser.getId()).concat("_").concat(xxlSsoUser.getVersion());
         return sessionId;
     }
 

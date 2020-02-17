@@ -1,6 +1,9 @@
 package com.xxl.sso.core.user;
 
+import lombok.Data;
+
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -8,12 +11,14 @@ import java.util.Map;
  *
  * @author xuxueli 2018-04-02 19:59:49
  */
+@Data
 public class XxlSsoUser implements Serializable {
     private static final long serialVersionUID = 42L;
+    private static final String PATTERN_DATETIME = "yyyy-MM-dd HH:mm:ss";
 
     // field
-    private String userid;
-    private String username;
+//    private String userid;
+//    private String username;
     private Map<String, String> plugininfo;
 
     private String version;
@@ -21,53 +26,96 @@ public class XxlSsoUser implements Serializable {
     private long expireFreshTime;
 
 
+
+    /**
+     * 主键id
+     */
+    private Long id;
+
+    /**
+     * 创建人
+     */
+    private Long createUser;
+
+    /**
+     * 创建部门
+     */
+    private Long createDept;
+
+    /**
+     * 创建时间
+     */
+    private Date createTime;
+
+    /**
+     * 更新人
+     */
+    private Long updateUser;
+
+    /**
+     * 更新时间
+     */
+    private Date updateTime;
+
+    /**
+     * 状态[1:正常]
+     */
+    private Integer status;
+
+    /**
+     * 状态[0:未删除,1:删除]
+     */
+    private Integer isDeleted;
+    /**
+     * 账号
+     */
+    private String account;
+    /**
+     * 密码
+     */
+    private String password;
+    /**
+     * 昵称
+     */
+    private String name;
+    /**
+     * 真名
+     */
+    private String realName;
+    /**
+     * 头像
+     */
+    private String avatar;
+    /**
+     * 邮箱
+     */
+    private String email;
+    /**
+     * 手机
+     */
+    private String phone;
+    /**
+     * 生日
+     */
+    private Date birthday;
+    /**
+     * 性别
+     */
+    private Integer sex;
+    /**
+     * 角色id
+     */
+    private String roleId;
+    /**
+     * 部门id
+     */
+    private String deptId;
+    /**
+     * 租户ID
+     */
+    private String tenantId;
+
+
     // set get
-    public String getUserid() {
-        return userid;
-    }
-
-    public void setUserid(String userid) {
-        this.userid = userid;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Map<String, String> getPlugininfo() {
-        return plugininfo;
-    }
-
-    public void setPlugininfo(Map<String, String> plugininfo) {
-        this.plugininfo = plugininfo;
-    }
-
-    public String getVersion() {
-        return version;
-    }
-
-    public void setVersion(String version) {
-        this.version = version;
-    }
-
-    public int getExpireMinute() {
-        return expireMinute;
-    }
-
-    public void setExpireMinute(int expireMinute) {
-        this.expireMinute = expireMinute;
-    }
-
-    public long getExpireFreshTime() {
-        return expireFreshTime;
-    }
-
-    public void setExpireFreshTime(long expireFreshTime) {
-        this.expireFreshTime = expireFreshTime;
-    }
 
 }
