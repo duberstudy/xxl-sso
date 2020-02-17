@@ -7,6 +7,7 @@ import com.xxl.sso.core.store.SsoSessionIdHelper;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
 import com.xxl.sso.server.service.UserService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -46,8 +47,8 @@ public class AppController {
 
         // 1、make xxl-sso user
         XxlSsoUser xxlUser = new XxlSsoUser();
-        xxlUser.setUserid(String.valueOf(result.getData().getUserid()));
-        xxlUser.setUsername(result.getData().getUsername());
+        BeanUtils.copyProperties(result.getData(),xxlUser);
+
         xxlUser.setVersion(UUID.randomUUID().toString().replaceAll("-", ""));
         xxlUser.setExpireMinute(SsoLoginStore.getRedisExpireMinute());
         xxlUser.setExpireFreshTime(System.currentTimeMillis());

@@ -40,6 +40,7 @@
                         </div>
                     </div><!-- /.col -->
                     <div class="col-xs-4">
+                        <#-- 如果redirect_url没有值，就置为空字符串 -->
                         <input type="hidden" name="redirect_url" value="${redirect_url!''}" />
                         <button type="submit" class="btn btn-primary btn-block btn-flat">Login</button>
                     </div>
