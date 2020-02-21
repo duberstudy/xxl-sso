@@ -115,6 +115,11 @@ public class XxlSsoUser implements Serializable {
      */
     private String tenantId;
 
+    /**
+     * 角色集合，以 "," 分隔
+     */
+    private String roleName;
+
 
     // set get
 
