@@ -66,6 +66,8 @@ public class SsoTokenLoginHelper {
             return null;
         }
 
+        System.out.println("开始从SESSION获取数据，key： "+storeKey);
+
         XxlSsoUser xxlUser = SsoLoginStore.get(storeKey);
         if (xxlUser != null) {
             String version = SsoSessionIdHelper.parseVersion(sessionId);

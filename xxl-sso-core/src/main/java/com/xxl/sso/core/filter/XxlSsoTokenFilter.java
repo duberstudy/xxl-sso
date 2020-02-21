@@ -43,6 +43,8 @@ public class XxlSsoTokenFilter extends HttpServlet implements Filter {
         HttpServletRequest req = (HttpServletRequest) request;
         HttpServletResponse res = (HttpServletResponse) response;
 
+        System.out.println("XXLSSOTOKENFILTER开始执行=====================");
+
         // make url
         String servletPath = req.getServletPath();
 

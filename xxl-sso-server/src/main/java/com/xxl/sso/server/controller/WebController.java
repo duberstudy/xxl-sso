@@ -5,8 +5,10 @@ import com.xxl.sso.core.login.SsoWebLoginHelper;
 import com.xxl.sso.core.store.SsoLoginStore;
 import com.xxl.sso.core.store.SsoSessionIdHelper;
 import com.xxl.sso.core.user.XxlSsoUser;
+import com.xxl.sso.server.core.model.RoleInfo;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
+import com.xxl.sso.server.service.RoleService;
 import com.xxl.sso.server.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * sso server (for web)
@@ -29,6 +33,9 @@ public class WebController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
     @RequestMapping("/")
     public String index(Model model, HttpServletRequest request, HttpServletResponse response) {
@@ -105,6 +112,7 @@ public class WebController {
             return "redirect:/login";
         }
 
+
         // 1、make xxl-sso user
         XxlSsoUser xxlUser = new XxlSsoUser();
         BeanUtils.copyProperties(result.getData(),xxlUser);
@@ -113,6 +121,13 @@ public class WebController {
         xxlUser.setExpireMinute(SsoLoginStore.getRedisExpireMinute());
         xxlUser.setExpireFreshTime(System.currentTimeMillis());
 
+        // 设置角色信息
+        List<RoleInfo> roleInfos = roleService.listRolesByIds(result.getData().getRoleId());
+        String roleName = roleInfos.stream().map(item -> item.getRoleAlias()).collect(Collectors.joining(","));
+        xxlUser.setRoleName(roleName);
+
+        System.out.println("角色Id，获取到的角色数量=======》》"+result.getData().getRoleId()+"_-_"+roleInfos.size());
+        System.out.println("角色信息=======》》"+roleName);
 
         // 2、make session id
         String sessionId = SsoSessionIdHelper.makeSessionId(xxlUser);
