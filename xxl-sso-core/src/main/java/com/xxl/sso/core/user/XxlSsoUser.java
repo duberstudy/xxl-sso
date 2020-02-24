@@ -115,6 +115,8 @@ public class XxlSsoUser implements Serializable {
      */
     private String tenantId;
 
+    private String roleName;
+
 
     // set get
 
