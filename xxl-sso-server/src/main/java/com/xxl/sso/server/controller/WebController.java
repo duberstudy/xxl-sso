@@ -71,7 +71,7 @@ public class WebController {
             if (redirectUrl!=null && redirectUrl.trim().length()>0) {
 
                 String sessionId = SsoWebLoginHelper.getSessionIdByCookie(request);
-                String redirectUrlFinal = redirectUrl + "?" + Conf.SSO_SESSIONID + "=" + sessionId;;
+                String redirectUrlFinal = redirectUrl + "?" + Conf.SSO_SESSIONID + "=" + sessionId;
 
                 return "redirect:" + redirectUrlFinal;
             } else {
