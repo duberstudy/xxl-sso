@@ -96,7 +96,7 @@ public class AppController {
         // logout
         XxlSsoUser xxlUser = SsoTokenLoginHelper.loginCheck(sessionId);
         if (xxlUser == null) {
-            return new ReturnT<XxlSsoUser>(ReturnT.FAIL_CODE, "sso not login.");
+            return new ReturnT<XxlSsoUser>(401, "sso not login.");
         }
         return new ReturnT<XxlSsoUser>(xxlUser);
     }
