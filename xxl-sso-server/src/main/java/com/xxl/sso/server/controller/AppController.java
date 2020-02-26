@@ -2,14 +2,16 @@ package com.xxl.sso.server.controller;
 
 import com.xxl.sso.core.login.SsoTokenLoginHelper;
 import com.xxl.sso.core.store.SsoLoginStore;
-import com.xxl.sso.core.user.XxlSsoUser;
 import com.xxl.sso.core.store.SsoSessionIdHelper;
+import com.xxl.sso.core.user.XxlSsoUser;
+import com.xxl.sso.server.core.dto.AppUserReq;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
 import com.xxl.sso.server.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -31,13 +33,15 @@ public class AppController {
     /**
      * Login
      *
-     * @param username
-     * @param password
+     * @param req
      * @return
      */
     @RequestMapping("/login")
     @ResponseBody
-    public ReturnT<String> login(String username, String password) {
+    public ReturnT<String> login(@RequestBody AppUserReq req) {
+
+        String username = req.getUsername();
+        String password = req.getPassword();
 
         // valid login
         ReturnT<UserInfo> result = userService.findUser(username, password);
