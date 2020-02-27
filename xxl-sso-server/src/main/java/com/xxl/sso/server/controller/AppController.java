@@ -5,8 +5,10 @@ import com.xxl.sso.core.store.SsoLoginStore;
 import com.xxl.sso.core.store.SsoSessionIdHelper;
 import com.xxl.sso.core.user.XxlSsoUser;
 import com.xxl.sso.server.core.dto.AppUserReq;
+import com.xxl.sso.server.core.model.RoleInfo;
 import com.xxl.sso.server.core.model.UserInfo;
 import com.xxl.sso.server.core.result.ReturnT;
+import com.xxl.sso.server.service.RoleService;
 import com.xxl.sso.server.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 /**
  * sso server (for app)
@@ -28,6 +32,9 @@ public class AppController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RoleService roleService;
 
 
     /**
@@ -57,6 +64,13 @@ public class AppController {
         xxlUser.setExpireMinute(SsoLoginStore.getRedisExpireMinute());
         xxlUser.setExpireFreshTime(System.currentTimeMillis());
 
+        // 设置角色信息
+        List<RoleInfo> roleInfos = roleService.listRolesByIds(result.getData().getRoleId());
+        String roleName = roleInfos.stream().map(item -> item.getRoleAlias()).collect(Collectors.joining(","));
+        xxlUser.setRoleName(roleName);
+
+        System.out.println("角色Id，获取到的角色数量=======》》"+result.getData().getRoleId()+"_-_"+roleInfos.size());
+        System.out.println("角色信息=======》》"+roleName);
 
         // 2、generate sessionId + storeKey
         String sessionId = SsoSessionIdHelper.makeSessionId(xxlUser);
@@ -96,7 +110,7 @@ public class AppController {
         // logout
         XxlSsoUser xxlUser = SsoTokenLoginHelper.loginCheck(sessionId);
         if (xxlUser == null) {
-            return new ReturnT<XxlSsoUser>(401, "sso not login.");
+            return new ReturnT<XxlSsoUser>(ReturnT.FAIL_CODE, "sso not login.");
         }
         return new ReturnT<XxlSsoUser>(xxlUser);
     }

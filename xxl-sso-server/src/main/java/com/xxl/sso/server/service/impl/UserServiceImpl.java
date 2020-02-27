@@ -44,10 +44,10 @@ public class UserServiceImpl implements UserService {
     public ReturnT<UserInfo> findUser(String account, String password) {
 
         if (account==null || account.trim().length()==0) {
-            return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "Please input account.");
+            return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "请输入用户名！");
         }
         if (password==null || password.trim().length()==0) {
-            return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "Please input password.");
+            return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "请输入密码！");
         }
 
         QueryWrapper<UserInfo> queryWrapper = new QueryWrapper<>();
@@ -58,7 +58,7 @@ public class UserServiceImpl implements UserService {
             return new ReturnT<UserInfo>(result);
         }
 
-        return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "account or password is invalid.");
+        return new ReturnT<UserInfo>(ReturnT.FAIL_CODE, "用户名或密码错误！");
     }
 
 
