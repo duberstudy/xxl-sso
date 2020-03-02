@@ -71,7 +71,7 @@ public class SsoTokenLoginHelper {
         XxlSsoUser xxlUser = SsoLoginStore.get(storeKey);
         if (xxlUser != null) {
             String version = SsoSessionIdHelper.parseVersion(sessionId);
-            if (xxlUser.getVersion().equals(version)) {
+//            if (xxlUser.getVersion().equals(version)) {
 
                 // After the expiration time has passed half, Auto refresh
                 if ((System.currentTimeMillis() - xxlUser.getExpireFreshTime()) > xxlUser.getExpireMinute()/2) {
@@ -80,7 +80,7 @@ public class SsoTokenLoginHelper {
                 }
 
                 return xxlUser;
-            }
+//            }
         }
         return null;
     }
