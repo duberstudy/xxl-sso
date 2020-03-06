@@ -33,6 +33,11 @@ public class XxlSsoUser implements Serializable {
     private Long id;
 
     /**
+     *用户id，就是主键id
+     */
+    private Long userId;
+
+    /**
      * 创建人
      */
     private Long createUser;
@@ -120,4 +125,7 @@ public class XxlSsoUser implements Serializable {
 
     // set get
 
+    public Long getUserId() {
+        return id;
+    }
 }
