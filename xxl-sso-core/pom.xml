@@ -43,4 +43,18 @@
 
     </dependencies>
 
+    <!-- 发布maven私服 -->
+    <distributionManagement>
+        <repository>
+            <id>nexus-releases</id>
+            <name>upload to releases</name>
+            <url>http://47.92.123.170:8081/content/repositories/releases/</url>
+        </repository>
+        <snapshotRepository>
+            <id>nexus-snapshots</id>
+            <name>upload to snapshots</name>
+            <url>http://47.92.123.170:8081/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
 </project>
